@@ -38,14 +38,15 @@ let adminApp: admin.app.App = makeUnavailable('App');
 let adminAuth: admin.auth.Auth = makeUnavailable('Auth');
 let adminDb: admin.firestore.Firestore = makeUnavailable('Firestore');
 let adminAppCheck: admin.appCheck.AppCheck = makeUnavailable('AppCheck');
+let adminStorage: admin.storage.Storage = makeUnavailable('Storage');
 let isAdminInitialized = false;
 
 try {
-  if (!admin.apps.length) {
+  if (!admin.apps?.length) {
     const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
     const projectId = process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
     const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-    const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+    const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace?.(/\\n/g, '\n');
 
     if (serviceAccount) {
       console.log('🔐 [Firebase] Initializing with service account JSON');
@@ -75,6 +76,7 @@ try {
   adminAuth = admin.auth();
   adminDb = admin.firestore();
   adminAppCheck = admin.appCheck();
+  adminStorage = admin.storage();
   isAdminInitialized = true;
 } catch (error) {
   console.warn(
@@ -83,4 +85,4 @@ try {
   );
 }
 
-export { adminApp, adminAuth, adminDb, adminAppCheck, isAdminInitialized };
+export { adminApp, adminAuth, adminDb, adminAppCheck, adminStorage, isAdminInitialized };
