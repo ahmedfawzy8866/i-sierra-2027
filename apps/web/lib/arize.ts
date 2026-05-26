@@ -8,28 +8,37 @@ import { Metadata } from "@grpc/grpc-js";
 import { trace, Tracer } from "@opentelemetry/api";
 import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-base";
 
-const metadata = new Metadata();
-metadata.set("space-key", process.env.ARIZE_SPACE_ID || "");
-metadata.set("api-key", process.env.ARIZE_API_KEY || "");
+let sdk: NodeSDK | null = null;
 
-const arizeExporter = new GrpcOTLPTraceExporter({
-  url: "https://otlp.arize.com:443",
-  metadata: metadata as any,
-});
+function initializeSDK(): NodeSDK {
+  if (sdk) return sdk;
 
-const sdk = new NodeSDK({
-  resource: resourceFromAttributes({
-    [SEMRESATTRS_PROJECT_NAME]: process.env.ARIZE_PROJECT_NAME || "sierra-blu-platform",
-  }),
-  spanProcessors: [
-    new BatchSpanProcessor(arizeExporter)
-  ],
-});
+  const metadata = new Metadata();
+  metadata.set("space-key", process.env.ARIZE_SPACE_ID || "");
+  metadata.set("api-key", process.env.ARIZE_API_KEY || "");
+
+  const arizeExporter = new GrpcOTLPTraceExporter({
+    url: "https://otlp.arize.com:443",
+    metadata: metadata as any,
+  });
+
+  sdk = new NodeSDK({
+    resource: resourceFromAttributes({
+      [SEMRESATTRS_PROJECT_NAME]: process.env.ARIZE_PROJECT_NAME || "sierra-blu-platform",
+    }),
+    spanProcessors: [
+      new BatchSpanProcessor(arizeExporter)
+    ],
+  });
+
+  return sdk;
+}
 
 export const initArize = () => {
   if (typeof window === "undefined") {
     try {
-      sdk.start();
+      const arizeSDK = initializeSDK();
+      arizeSDK.start();
       console.log("📡 Arize Intelligence Pipeline Tracing Initialized");
     } catch (err) {
       console.error("❌ Failed to start Arize SDK", err);
