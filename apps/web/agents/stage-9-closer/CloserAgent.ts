@@ -1,8 +1,11 @@
-import { Deal, DealStatus } from '../../lib/models/deals';
-import { adminDb } from '../../lib/server/firebase-admin';
+import { Deal } from '../../lib/models/deals';
 import { COLLECTIONS, InvestmentStakeholder } from '../../lib/models/schema';
 import { getTemplate } from './messaging/templates';
+import { adminDb } from '../../lib/server/firebase-admin';
 import * as admin from 'firebase-admin';
+
+// StateManager handles orchestration state; deal-specific writes stay here
+// because Deal is a separate collection outside the pipeline collections.
 
 /**
  * SIERRA BLU — THE CLOSER (AGENT 04)

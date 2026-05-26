@@ -1,40 +1,38 @@
-import 'server-only'; // gRPC dependency — server only
-import { adminDb } from '../server/firebase-admin';
+import 'server-only';
 import { COLLECTIONS } from '../models/schema';
 import { instrumentAgent } from '../arize';
 import { OrchestrationStage } from '../services/orchestrator';
-import { GoogleAIService } from '../server/google-ai';
 import { FinancialService } from '../services/financial-service';
+import { StateManager } from '../orchestration/StateManager';
+import { aiService } from '../ai/GoogleAIServiceImpl';
 
 /**
  * THE SCRIBE: "The Architect of Truth"
  * Handles Raw Data Intake (S1) and Logical Normalization (S2).
+ *
+ * Pure agent: only orchestrates logic, doesn't read/write Firestore directly.
  */
 export const runScribe = async (
-  docId: string, 
+  docId: string,
   collection: keyof typeof COLLECTIONS,
   stage: OrchestrationStage
 ) => {
   return instrumentAgent('scribe', stage, docId, async () => {
-    const docRef = adminDb.collection(COLLECTIONS[collection]).doc(docId);
-    const doc = await docRef.get();
-    
-    if (!doc.exists) throw new Error(`Document ${docId} not found`);
-    const data = doc.data();
+    // Verify document exists
+    const doc = await StateManager.getDocument(docId, collection);
+    if (!doc) throw new Error(`Document ${docId} not found`);
 
     if (stage === 'S1') {
       console.log(`[SCRIBE] S1: Raw Data Intake for ${docId}`);
       // In production, S1 handles deduplication and initial validation
-      await docRef.update({
-        'orchestrationState.stage': 'S2'
-      });
+      await StateManager.completeStage(docId, collection, 'S2');
     }
 
     if (stage === 'S2') {
       console.log(`[SCRIBE] S2: Logical Normalization for ${docId}`);
-      
-      const rawText = data?.rawMessage || data?.description || JSON.stringify(data || {});
-      
+
+      const rawText = doc?.rawMessage || doc?.description || JSON.stringify(doc || {});
+
       const systemPrompt = `You are "The Scribe", the Architect of Truth for Sierra Blu Realty.
 Your job is to take raw, messy property data and normalize it into a precise institutional record.
 Enforce Sierra Blu standards:
@@ -50,37 +48,35 @@ Output ONLY a JSON object.`;
 "${rawText}"`;
 
       try {
-        const resultText = await GoogleAIService.generateContent(
+        const normalized = await aiService.generateJSON(
           'scribe', 'S2-Normalization',
           { system: systemPrompt, user: userPrompt },
-          { model: 'gemini-1.5-flash', jsonMode: true }
+          { model: 'fast' }
         );
 
-        const normalized = JSON.parse(resultText);
-
         // --- SIERRA BLU UPGRADE: Automated Valuation (S2.5) ---
-        const unitData = { ...data, intelligence: { ...data?.intelligence, ...normalized } } as any;
+        const unitData = { ...doc, intelligence: { ...doc?.intelligence, ...normalized } } as any;
         const valuation = FinancialService.calcAppraisedValue(unitData);
 
-        await docRef.update({
+        await StateManager.completeStage(docId, collection, 'S3', {
           'intelligence.normalizedAt': new Date().toISOString(),
-          'intelligence.building': normalized.building || data?.intelligence?.building || '',
-          'intelligence.floor': normalized.floor || data?.intelligence?.floor || '',
-          'intelligence.unitNumber': normalized.unitNumber || data?.intelligence?.unitNumber || '',
+          'intelligence.building': normalized.building || doc?.intelligence?.building || '',
+          'intelligence.floor': normalized.floor || doc?.intelligence?.floor || '',
+          'intelligence.unitNumber': normalized.unitNumber || doc?.intelligence?.unitNumber || '',
           'intelligence.finishingGrade': normalized.finishingGrade || '',
           'intelligence.furnishingStatus': normalized.furnishingStatus || '',
           'intelligence.valuation': valuation,
-          'beds': normalized.rooms || data?.beds || 0,
-          'baths': normalized.bathrooms || data?.baths || 0,
-          'orchestrationState.stage': 'S3',
-          'orchestrationState.status': 'completed'
+          'beds': normalized.rooms || doc?.beds || 0,
+          'baths': normalized.bathrooms || doc?.baths || 0,
         });
       } catch (error) {
         console.error(`[SCRIBE] S2 Error for ${docId}:`, error);
-        await docRef.update({
-          'orchestrationState.status': 'failed',
-          'orchestrationState.error': 'Normalization AI failed'
-        });
+        await StateManager.failStage(
+          docId,
+          collection,
+          stage,
+          'Normalization AI failed'
+        );
       }
     }
 
