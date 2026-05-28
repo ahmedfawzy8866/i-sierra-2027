@@ -14,15 +14,7 @@ const config = {
     '!**/node_modules/**',
     '!**/.next/**',
   ],
-  // TODO: Restore coverage thresholds once service layer test coverage improves
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 10,
-  //     functions: 10,
-  //     lines: 10,
-  //     statements: 10,
-  //   },
-  // },
+  coverageReporters: ['text-summary', 'lcov', 'json'],
   setupFilesAfterEnv: ['<rootDir>/__tests__/setup.ts'],
   transform: {
     '^.+\\.tsx?$': [
