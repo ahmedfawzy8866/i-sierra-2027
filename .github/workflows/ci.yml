@@ -193,6 +193,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    # Lighthouse requires a live URL; without a preview deployment this is informational only
+    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
