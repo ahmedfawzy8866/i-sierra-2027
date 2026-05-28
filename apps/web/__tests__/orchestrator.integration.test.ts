@@ -208,7 +208,7 @@ describe('Orchestrator Integration Tests', () => {
 
   describe('Repository Isolation', () => {
     it('should isolate lead, property, and deal repositories', async () => {
-      const lead = await leadRepo.create({
+      await leadRepo.create({
         email: 'iso@example.com',
         name: 'Isolation Test',
         budget: 2000000
@@ -222,7 +222,7 @@ describe('Orchestrator Integration Tests', () => {
       expect(properties).toHaveLength(0);
       expect(deals).toHaveLength(0);
 
-      const property = await propertyRepo.create({
+      await propertyRepo.create({
         sbrCode: 'ISO-1B-20K',
         name: 'Isolation Property',
         compound: 'Test',

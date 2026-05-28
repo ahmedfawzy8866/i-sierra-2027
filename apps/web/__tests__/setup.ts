@@ -48,3 +48,13 @@ jest.mock('googleapis', () => ({
 
 // Global test timeout
 jest.setTimeout(10000);
+
+// Suppress console noise from intentional error-path tests and function logs
+beforeEach(() => {
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+  jest.spyOn(console, 'log').mockImplementation(() => {});
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});

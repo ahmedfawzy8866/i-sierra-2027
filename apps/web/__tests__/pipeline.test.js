@@ -18,7 +18,7 @@ const mockDocRef = (id = 'doc123') => ({
 const mockServerTimestamp = jest.fn(() => '__TIMESTAMP__');
 
 const mockDb = {
-  collection: jest.fn((name) => ({
+  collection: jest.fn((_name) => ({
     add: jest.fn(async (data) => {
       const id = `mock-id-${Date.now()}`;
       rawScrapeData[id] = data;
@@ -63,9 +63,9 @@ jest.mock('firebase-functions', () => ({
 // Import the functions under test
 // --------------------------------------------------------------------------
  
-const { collectData } = require('../functions/collectData');
- 
-const { processDataForApp } = require('../functions/processData');
+const { collectData } = require('../../../functions/collectData');
+
+const { processDataForApp } = require('../../../functions/processData');
 
 // --------------------------------------------------------------------------
 // Helper: build a minimal Express-like req/res pair
