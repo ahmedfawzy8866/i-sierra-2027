@@ -1,10 +1,22 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/server/firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
 import { WhatsAppParserService } from '@/lib/services/WhatsAppParserService';
 import { COLLECTIONS, BrokerListing } from '@/lib/models/schema';
 
-export async function POST(req: Request) {
+const SECRET_KEY = process.env.SBR_SECRET_KEY || '';
+
+async function verifyWebhookSecret(req: NextRequest): Promise<boolean> {
+  if (!SECRET_KEY) return true;
+  const secretHeader = req.headers.get('x-sbr-secret-key');
+  return secretHeader === SECRET_KEY;
+}
+
+export async function POST(req: NextRequest) {
+  if (!await verifyWebhookSecret(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await req.json();
 

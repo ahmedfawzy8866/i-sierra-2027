@@ -1,5 +1,6 @@
 const collectionMock = jest.fn();
 const analyzeAssetFinancialsMock = jest.fn();
+const verifyAdminRequestMock = jest.fn();
 
 jest.mock('@/lib/server/firebase-admin', () => ({
   adminDb: {
@@ -11,16 +12,23 @@ jest.mock('@/lib/services/roi-service', () => ({
   analyzeAssetFinancials: (...args: unknown[]) => analyzeAssetFinancialsMock(...args),
 }));
 
+jest.mock('@/lib/server/auth-guard', () => ({
+  verifyAdminRequest: (...args: unknown[]) => verifyAdminRequestMock(...args),
+  unauthorizedResponse: jest.fn(),
+}));
+
+import { NextRequest } from 'next/server';
 import { POST } from '@/app/api/wealth/roi/route';
 
 describe('POST /api/wealth/roi', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    verifyAdminRequestMock.mockResolvedValue({ authenticated: true, uid: 'admin-user' });
   });
 
   test('returns 400 when proposalId is missing', async () => {
     const res = await POST(
-      new Request('http://localhost:3000/api/wealth/roi', {
+      new NextRequest('http://localhost:3000/api/wealth/roi', {
         method: 'POST',
         body: JSON.stringify({}),
       }),
@@ -40,7 +48,7 @@ describe('POST /api/wealth/roi', () => {
     });
 
     const res = await POST(
-      new Request('http://localhost:3000/api/wealth/roi', {
+      new NextRequest('http://localhost:3000/api/wealth/roi', {
         method: 'POST',
         body: JSON.stringify({ proposalId: 'missing-proposal' }),
       }),
@@ -92,7 +100,7 @@ describe('POST /api/wealth/roi', () => {
       .mockResolvedValueOnce({ projectedROI: 20, annualYield: 8.4 });
 
     const res = await POST(
-      new Request('http://localhost:3000/api/wealth/roi', {
+      new NextRequest('http://localhost:3000/api/wealth/roi', {
         method: 'POST',
         body: JSON.stringify({ proposalId: 'proposal-1' }),
       }),
@@ -114,7 +122,7 @@ describe('POST /api/wealth/roi', () => {
     });
 
     const res = await POST(
-      new Request('http://localhost:3000/api/wealth/roi', {
+      new NextRequest('http://localhost:3000/api/wealth/roi', {
         method: 'POST',
         body: JSON.stringify({ proposalId: 'proposal-1' }),
       }),
