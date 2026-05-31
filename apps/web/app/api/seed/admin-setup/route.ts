@@ -19,13 +19,8 @@ export async function POST(req: NextRequest) {
     try {
       const user = await adminAuth.createUser({ email, password, displayName });
       uid = user.uid;
-<<<<<<< HEAD
-    } catch (err: any) {
-      if (err.code === 'auth/email-already-exists') {
-=======
     } catch (err: unknown) {
       if ((err as { code?: string }).code === 'auth/email-already-exists') {
->>>>>>> origin/main
         const existing = await adminAuth.getUserByEmail(email);
         uid = existing.uid;
         await adminAuth.updateUser(uid, { password });
@@ -42,13 +37,8 @@ export async function POST(req: NextRequest) {
     }, { merge: true });
 
     return NextResponse.json({ success: true, uid });
-<<<<<<< HEAD
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-=======
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);
     return NextResponse.json({ error: message }, { status: 500 });
->>>>>>> origin/main
   }
 }

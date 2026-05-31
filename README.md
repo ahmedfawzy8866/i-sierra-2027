@@ -11,20 +11,14 @@ A production-ready, unified monorepo consolidating all Sierra-related repositori
 ```
 i-sierra-2027/
 ├── apps/
-<<<<<<< HEAD
-│   ├── web/                    # Main customer-facing app (Next.js + Turbopack)
-│   │   ├── app/               # App Router pages & layouts
-=======
 │   ├── web/                    # Main customer-facing app (Next.js 16 + Turbopack)
 │   │   ├── app/               # App Router pages (62 routes) & layouts
->>>>>>> origin/main
 │   │   ├── components/        # React components (13+ modules)
 │   │   ├── hooks/             # Custom React hooks
 │   │   ├── lib/               # Utilities, services, models, agents
 │   │   └── public/            # Static assets
-<<<<<<< HEAD
-│   ├── admin/                 # Admin portal (Vite SPA)
-│   │   └── src/               # React source
+│   ├── admin/                 # Admin portal (Vite + React SPA)
+│   │   └── src/               # React source (auth, CRM, listing modules)
 │   ├── api/                   # Python backend (FastAPI)
 │   │   ├── main.py            # FastAPI entry point
 │   │   ├── requirements.txt   # Python dependencies
@@ -32,10 +26,6 @@ i-sierra-2027/
 │   └── agents/                # AI agents & bots
 │       ├── stage-9-closer/    # Closer agent (TypeScript)
 │       └── whatsapp-scraper/  # WhatsApp bot (Node.js)
-=======
-│   └── admin/                 # Admin portal (Vite + React SPA)
-│       └── src/               # React source (auth, CRM, listing modules)
->>>>>>> origin/main
 ├── packages/
 │   ├── api/                   # Shared API types & clients
 │   ├── db/                    # Firestore models & utilities
@@ -45,32 +35,22 @@ i-sierra-2027/
 │   ├── config/                # Shared configuration
 │   └── ui/                    # Shared React component library
 ├── functions/                 # Firebase Cloud Functions (Node.js 20)
-<<<<<<< HEAD
 │   └── src/
 │       └── index.ts           # collectData, processDataForApp, api, healthCheck
+├── workflows/                 # Automation scripts (WhatsApp, owner search, etc.)
 ├── scripts/
 │   └── create-migrate-branches.sh  # Run by repo admin to push migrate/* branches
 ├── .github/workflows/         # CI/CD pipelines (ci, build, test, deploy, codeql)
+├── firestore.rules            # Production Firestore security rules
+├── storage.rules              # Production Storage security rules
 ├── pnpm-workspace.yaml        # Monorepo workspace config
-├── turbo.json                 # Turborepo build cache config
+├── turbo.json                 # Turborepo build cache config (v2)
 ├── package.json               # Root workspace dependencies
 ├── firebase.json              # Firebase hosting & functions config
 ├── vercel.json                # Vercel deployment config
 ├── MIGRATION.md               # Migration map & branch reference
 ├── ARCHITECTURE.md            # Full architecture overview
 └── DEPLOYMENT_GUIDE.md        # End-to-end deployment steps
-=======
-│   ├── src/index.ts           # Functions entry point
-│   └── package.json
-├── workflows/                 # Automation scripts (WhatsApp, owner search, etc.)
-├── .github/workflows/         # CI/CD pipelines
-├── firestore.rules            # Production Firestore security rules
-├── storage.rules              # Production Storage security rules
-├── firebase.json              # Firebase hosting & functions config
-├── pnpm-workspace.yaml        # Monorepo workspace config
-├── turbo.json                 # Turborepo build cache config (v2)
-└── package.json               # Root workspace dependencies
->>>>>>> origin/main
 ```
 
 ## 🚀 Quick Start

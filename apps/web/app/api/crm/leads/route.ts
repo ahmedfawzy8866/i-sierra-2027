@@ -63,14 +63,6 @@ export async function POST(request: Request) {
           description: `Investor Profile: ${client_name} | Target addressed: ${extracted_metrics.compound_target} | Lead Owner: ${assignedCloser}`,
           phone: client_mobile
         })
-<<<<<<< HEAD
-      }).catch(err => console.error("Zapier Webhook Relay Blocked: ", err));
-    }
-
-    return NextResponse.json({ success: true, lead_id: leadId, leila_score: `${leilaScore}/10`, routed_closer: assignedCloser });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
-=======
       }).catch(_err => console.error("Zapier Webhook Relay Blocked: ", _err));
     }
 
@@ -78,6 +70,5 @@ export async function POST(request: Request) {
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);
     return NextResponse.json({ success: false, error: message }, { status: 500 });
->>>>>>> origin/main
   }
 }
