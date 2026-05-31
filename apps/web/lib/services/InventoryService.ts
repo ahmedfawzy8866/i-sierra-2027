@@ -18,6 +18,8 @@ export interface Property {
   title: string;
   propertyType: string;
   status: string;
+  offerType?: 'sale' | 'rent';
+  listingType?: 'primary' | 'resale' | 'landlord_direct' | 'developer_inventory';
   compound: string;
   location: string;
   city: string;
