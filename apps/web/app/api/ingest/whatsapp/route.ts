@@ -1,4 +1,3 @@
-import { NextResponse, NextRequest } from 'next/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/server/firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
@@ -114,13 +113,6 @@ const buildListingDocument = (
 };
 
 export async function POST(req: NextRequest) {
-  // Optional secret verification for WhatsApp ingest webhook
-  const SECRET_KEY = process.env.SBR_SECRET_KEY || '';
-  if (SECRET_KEY) {
-    const secretHeader = req.headers.get('x-sbr-secret-key');
-    if (!secretHeader || secretHeader !== SECRET_KEY) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
-    }
   if (!await verifyWebhookSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
