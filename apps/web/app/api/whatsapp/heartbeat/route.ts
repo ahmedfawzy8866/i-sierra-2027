@@ -6,7 +6,7 @@ import { applyRateLimit, publicEndpointLimiter } from '@/lib/server/rate-limit';
  * POST /api/whatsapp/heartbeat
  * Called by the scraper bot every ~60s to signal it is alive.
  */
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const rateLimitResponse = applyRateLimit(req, publicEndpointLimiter);
   if (rateLimitResponse) return rateLimitResponse;
 
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ ok: true, ts: new Date().toISOString() });
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: Request) {
   const rateLimitResponse = applyRateLimit(req, publicEndpointLimiter);
   if (rateLimitResponse) return rateLimitResponse;
 

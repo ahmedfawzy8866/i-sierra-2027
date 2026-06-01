@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { WealthService } from '@/lib/services/WealthService';
 import { applyRateLimit, publicEndpointLimiter } from '@/lib/server/rate-limit';
 
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   const rateLimitResponse = applyRateLimit(request, publicEndpointLimiter);
   if (rateLimitResponse) return rateLimitResponse;
 

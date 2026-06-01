@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 interface RateLimitConfig {
   windowMs: number;
@@ -12,17 +12,14 @@ interface RequestRecord {
 
 const store = new Map<string, RequestRecord>();
 
-export function getRateLimitKey(request: NextRequest): string {
-  if (!request || !request.headers) return 'test-default';
+export function getRateLimitKey(request: Request): string {
   const forwarded = request.headers.get('x-forwarded-for');
   const ip = forwarded ? forwarded.split(',')[0].trim() : request.headers.get('x-real-ip') || 'unknown';
   return ip;
 }
 
 export function createRateLimiter(config: RateLimitConfig) {
-  return (request: NextRequest | undefined) => {
-    if (!request) return null;
-
+  return (request: Request) => {
     const key = getRateLimitKey(request);
     const now = Date.now();
 
@@ -57,8 +54,8 @@ export const webhookLimiter = createRateLimiter({
 });
 
 export function applyRateLimit(
-  request: NextRequest | undefined,
-  limiter: (request: NextRequest | undefined) => NextResponse | null
+  request: Request,
+  limiter: (request: Request) => NextResponse | null
 ): NextResponse | null {
   return limiter(request);
 }

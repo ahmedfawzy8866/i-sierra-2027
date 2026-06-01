@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { COLLECTIONS } from '@/lib/models/schema';
 import { applyRateLimit, publicEndpointLimiter } from '@/lib/server/rate-limit';
 
@@ -104,7 +104,7 @@ function transformToListing(doc: FirestoreDocument): any {
   };
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   const rateLimitResponse = applyRateLimit(request, publicEndpointLimiter);
   if (rateLimitResponse) return rateLimitResponse;
 
