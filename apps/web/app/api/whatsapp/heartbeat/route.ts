@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { WhatsAppStatusService } from '@/lib/services/WhatsAppStatusService';
 import { applyRateLimit, publicEndpointLimiter } from '@/lib/server/rate-limit';
 

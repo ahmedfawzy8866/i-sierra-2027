@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { WealthService } from '@/lib/services/WealthService';
 import { applyRateLimit, publicEndpointLimiter } from '@/lib/server/rate-limit';
 
