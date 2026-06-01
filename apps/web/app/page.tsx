@@ -55,11 +55,13 @@ const COPY = {
     tagline: 'INTELLIGENCE-LED PROPERTY ADVISORY',
     nav: ['Properties', 'Intelligence', 'About', 'Contact'],
     cta: 'Enter Portal',
-    heroTag: 'Beyond Brokerage',
-    heroH1: ['Refined', 'Decisions.'],
-    heroItalic: 'Intelligence-Led.',
-    heroSub: 'Precision. Property. Purpose.',
-    heroDesc: 'Exceptional properties, precisely matched. We guide discerning investors toward Egypt\'s finest addresses — curated by expert advisors, refined by AI.',
+    heroTag: 'New Cairo · Rent & Resale',
+    heroH1: ['New Cairo living,', 'matched by intelligence.'],
+    heroItalic: '',
+    heroSub: 'Rent & Resale · Beyond Brokerage',
+    heroDesc: 'From the Fifth Settlement to Madinaty and Mostakbal City — explore curated rentals and resale homes, matched to you by AI and confirmed by a dedicated Sierra advisor.',
+    heroPurposeLabel: "I'm looking to",
+    heroBadgeBrand: 'New Cairo',
     btnDiscover: 'Explore Properties',
     btnView: 'Meet Sierra AI',
     stats: [['1,200+', 'Properties'], ['98%', 'Match Rate'], ['8+', 'Compounds'], ['4s', 'Response']],
@@ -134,11 +136,13 @@ const COPY = {
     tagline: 'استشارات عقارية مدعومة بالذكاء الاصطناعي',
     nav: ['العقارات', 'الذكاء', 'عنّا', 'اتصل'],
     cta: 'الدخول للبوابة',
-    heroTag: 'أبعد من الوساطة',
-    heroH1: ['قرارات', 'أرقى.'],
-    heroItalic: 'مدعومة بالذكاء.',
-    heroSub: 'دقة. عقار. غاية.',
-    heroDesc: 'عقارات استثنائية، مطابقة بدقة. نوجّه المستثمرين نحو أفخر العناوين في مصر — منتقاة بخبرة إنسانية، مُحسَّنة بالذكاء الاصطناعي.',
+    heroTag: 'القاهرة الجديدة · إيجار وإعادة بيع',
+    heroH1: ['سكن القاهرة الجديدة،', 'مطابقة بالذكاء.'],
+    heroItalic: '',
+    heroSub: 'إيجار وإعادة بيع · أبعد من الوساطة',
+    heroDesc: 'من التجمع الخامس إلى مدينتي ومستقبل سيتي — اكتشف وحدات الإيجار وإعادة البيع المنتقاة، مطابَقة لك بالذكاء الاصطناعي ومؤكَّدة من مستشار سييرا المختص.',
+    heroPurposeLabel: 'أبحث عن',
+    heroBadgeBrand: 'القاهرة الجديدة',
     btnDiscover: 'اكتشف العقارات',
     btnView: 'تعرّف على سييرا',
     stats: [['١٢٠٠+', 'عقار'], ['٩٨٪', 'دقة المطابقة'], ['٨+', 'كمباوند'], ['٤ث', 'الرد']],
@@ -253,6 +257,14 @@ const DEAL_TYPE_OPTIONS = (isAr: boolean) => [
   { value: 'primary', label: isAr ? 'مشروعات جديدة' : 'Primary' },
   { value: 'resale', label: isAr ? 'إعادة بيع' : 'Resale' },
   { value: 'rent', label: isAr ? 'للإيجار' : 'For Rent' },
+];
+// Property-Finder-style purpose tabs for the hero. Same dealType values as the
+// smart-filter board, ordered Rent → Resale → New Projects for a New Cairo focus.
+const HERO_PURPOSES = (isAr: boolean) => [
+  { value: '', label: isAr ? 'الكل' : 'All' },
+  { value: 'rent', label: isAr ? 'للإيجار' : 'For Rent' },
+  { value: 'resale', label: isAr ? 'إعادة بيع' : 'Resale' },
+  { value: 'primary', label: isAr ? 'مشروعات جديدة' : 'New Projects' },
 ];
 // Smart score starts at the minimum user-visible confidence baseline and grows with clear weights.
 const BASE_MATCH_SCORE = 62;
@@ -620,7 +632,7 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* ══ HERO: UPTOWN CAIRO PREMIUM GOLF VIEWS ══ */}
+      {/* ══ HERO: NEW CAIRO · RENT & RESALE ══ */}
       <section style={{ position: 'relative', minHeight: '100vh', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden', background: th.bg }} dir={isAr ? 'rtl' : 'ltr'}>
 
         {/* Premium Background Image with Layered Gradients */}
@@ -650,70 +662,68 @@ export default function LandingPage() {
           {/* Hero Headline Group */}
           <div style={{ maxWidth: 800, marginBottom: 48, textAlign: isAr ? 'right' : 'left', animation: loaded ? 'fadeUp .7s ease .1s both' : 'none' }}>
 
-            {/* Emaar Badge */}
+            {/* Location · Deal-type Badge */}
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: `1px solid ${th.border}`, borderRadius: 999, padding: '8px 14px', background: mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.35)', marginBottom: 24, backdropFilter: 'blur(8px)' }}>
-              <span style={{ fontSize: 9, color: th.accent, letterSpacing: '.12em', textTransform: 'uppercase', fontFamily: "'Jost', sans-serif", fontWeight: 600 }}>Emaar</span>
+              <span style={{ fontSize: 9, color: th.accent, letterSpacing: '.12em', textTransform: 'uppercase', fontFamily: "'Jost', sans-serif", fontWeight: 600 }}>{T.heroBadgeBrand}</span>
               <div style={{ width: 1, height: 14, background: th.border }} />
-              <span style={{ fontSize: 9, color: th.textSub, letterSpacing: '.08em', fontFamily: "'Jost', sans-serif" }}>Uptown Cairo</span>
+              <span style={{ fontSize: 9, color: th.textSub, letterSpacing: '.08em', fontFamily: "'Jost', sans-serif" }}>{isAr ? 'إيجار وإعادة بيع' : 'Rent & Resale'}</span>
             </div>
 
             {/* Main Headline */}
             <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(42px, 6.5vw, 84px)', fontWeight: 300, color: th.text, lineHeight: 1.08, letterSpacing: '-0.025em', marginBottom: 24, animation: loaded ? 'fadeUp .8s ease .2s both' : 'none' }}>
-              {lang === 'en' ? (
-                <>Wake up to the <br /><span style={{ fontWeight: 500, background: `linear-gradient(135deg, ${th.text} 0%, ${G} 50%, ${G2} 100%)`, backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Signature Golf Views</span></>
-              ) : (
-                <>استيقظ على <br /><span style={{ fontWeight: 500, background: `linear-gradient(135deg, ${th.text} 0%, ${G} 50%, ${G2} 100%)`, backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>مناظر الجولف التوقيعية</span></>
-              )}
+              {T.heroH1[0]} <br /><span style={{ fontWeight: 500, background: `linear-gradient(135deg, ${th.text} 0%, ${G} 50%, ${G2} 100%)`, backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{T.heroH1[1]}</span>
             </h1>
 
             {/* Subheadline */}
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: th.accent, marginBottom: 14, fontFamily: "'Jost', sans-serif", animation: loaded ? 'fadeUp .8s ease .24s both' : 'none' }}>{T.heroSub}</p>
             <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.7, color: th.textSub, maxWidth: 560, marginBottom: 32, fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", animation: loaded ? 'fadeUp .8s ease .28s both' : 'none' }}>
-              {lang === 'en'
-                ? 'Elevated luxury living 200 meters above sea level. Find your tailored villa or apartment overlooking the pristine green fairways.'
-                : 'العيش الفاخر المرتفع 200 متر فوق مستوى سطح البحر. ابحث عن فيلتك أو شقتك المخصصة إطلالة على ملاعب الجولف الخضراء النقية.'}
+              {T.heroDesc}
             </p>
           </div>
 
-          {/* AI Smart Filter Search Bar */}
-          <div style={{ width: '100%', maxWidth: 1100, background: mode === 'dark' ? 'rgba(13,32,53,0.5)' : 'rgba(255,255,255,0.4)', backdropFilter: 'blur(16px)', borderRadius: 16, border: `1px solid ${th.border}`, padding: 24, boxShadow: mode === 'dark' ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(13,32,53,0.1)', animation: loaded ? 'fadeUp .9s ease .35s both' : 'none' }} className="grid md:grid-cols-4 gap-4 items-end">
+          {/* Property-Finder-style hero search: purpose tabs + quick filters, wired to the live smart-filter engine */}
+          <div style={{ width: '100%', maxWidth: 1100, background: mode === 'dark' ? 'rgba(13,32,53,0.5)' : 'rgba(255,255,255,0.4)', backdropFilter: 'blur(16px)', borderRadius: 16, border: `1px solid ${th.border}`, padding: 24, boxShadow: mode === 'dark' ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(13,32,53,0.1)', animation: loaded ? 'fadeUp .9s ease .35s both' : 'none' }}>
 
-            {/* Filter 1: Property Type */}
-            <div>
-              <label style={{ fontSize: 9, fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: th.textMuted, display: 'block', marginBottom: 8, fontFamily: "'Jost', sans-serif" }}>{lang === 'en' ? 'Property Type' : 'نوع العقار'}</label>
-              <select style={{ width: '100%', background: 'transparent', color: th.text, fontSize: 13, fontWeight: 400, fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", border: 'none', outline: 'none', cursor: 'pointer', padding: '8px 0' }}>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'Golf Villa' : 'فيلا الجولف'}</option>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'Luxury Townhouse' : 'تاون هاوس فاخر'}</option>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'Premium Apartment' : 'شقة فاخرة'}</option>
-              </select>
+            {/* Purpose tabs (Rent / Resale / New Projects) — drive the dealType filter */}
+            <div style={{ marginBottom: 18 }}>
+              <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: th.textMuted, marginBottom: 10, fontFamily: "'Jost', sans-serif", textAlign: isAr ? 'right' : 'left' }}>{T.heroPurposeLabel}</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, flexDirection: isAr ? 'row-reverse' : 'row' }}>
+                {HERO_PURPOSES(isAr).map((p) => {
+                  const active = filters.dealType === p.value;
+                  return (
+                    <button
+                      key={p.value || 'all'}
+                      onClick={() => { setActivePreset(0); setFilters({ ...filters, dealType: p.value }); }}
+                      style={{ padding: '8px 18px', borderRadius: 999, cursor: 'pointer', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: 12, fontWeight: active ? 700 : 500, letterSpacing: isAr ? 0 : '.04em', color: active ? '#071422' : th.textSub, background: active ? `linear-gradient(135deg, ${G2}, ${G})` : 'transparent', border: `1px solid ${active ? 'transparent' : th.border}`, boxShadow: active ? '0 6px 18px rgba(233,193,118,0.3)' : 'none', transition: 'all .25s ease' }}
+                    >
+                      {p.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Filter 2: View Type */}
-            <div style={{ borderLeft: isAr ? 'none' : `1px solid ${th.border}`, borderRight: isAr ? `1px solid ${th.border}` : 'none', paddingLeft: isAr ? 0 : 16, paddingRight: isAr ? 16 : 0 }}>
-              <label style={{ fontSize: 9, fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: th.textMuted, display: 'block', marginBottom: 8, fontFamily: "'Jost', sans-serif" }}>{lang === 'en' ? 'Desired View' : 'المنظر المرغوب'}</label>
-              <select style={{ width: '100%', background: 'transparent', color: th.text, fontSize: 13, fontWeight: 400, fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", border: 'none', outline: 'none', cursor: 'pointer', padding: '8px 0' }}>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'Full Golf Course' : 'ملعب الجولف كاملاً'}</option>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'City Skyline & Greenery' : 'أفق المدينة والمساحات الخضراء'}</option>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'Private Pool & Garden' : 'حمام سباحة خاص وحديقة'}</option>
-              </select>
-            </div>
+            {/* Quick filters (reused from the live smart-filter segments) + search */}
+            <div className="grid md:grid-cols-4 gap-4 items-end">
+              {smartFilterSegments.filter((seg) => seg.label !== T.searchDeal).map((seg, i) => (
+                <div key={seg.label} style={i === 0 ? undefined : { borderLeft: isAr ? 'none' : `1px solid ${th.border}`, borderRight: isAr ? `1px solid ${th.border}` : 'none', paddingLeft: isAr ? 0 : 16, paddingRight: isAr ? 16 : 0 }}>
+                  <label style={{ fontSize: 9, fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: th.textMuted, display: 'block', marginBottom: 8, fontFamily: "'Jost', sans-serif", textAlign: isAr ? 'right' : 'left' }}>{seg.label}</label>
+                  <select value={seg.value} onChange={(e) => seg.onChange(e.target.value)} style={{ width: '100%', background: 'transparent', color: th.text, fontSize: 13, fontWeight: 400, fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", border: 'none', outline: 'none', cursor: 'pointer', padding: '8px 0', direction: isAr ? 'rtl' : 'ltr' }}>
+                    {seg.opts.map((o) => (
+                      <option key={o.value} value={o.value} style={{ background: th.bg, color: th.text }}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+              ))}
 
-            {/* Filter 3: Budget Range */}
-            <div style={{ borderLeft: isAr ? 'none' : `1px solid ${th.border}`, borderRight: isAr ? `1px solid ${th.border}` : 'none', paddingLeft: isAr ? 0 : 16, paddingRight: isAr ? 16 : 0 }}>
-              <label style={{ fontSize: 9, fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: th.textMuted, display: 'block', marginBottom: 8, fontFamily: "'Jost', sans-serif" }}>{lang === 'en' ? 'Price Range (EGP)' : 'نطاق السعر'}</label>
-              <select style={{ width: '100%', background: 'transparent', color: th.text, fontSize: 13, fontWeight: 400, fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", border: 'none', outline: 'none', cursor: 'pointer', padding: '8px 0' }}>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'Premium Tier' : 'الفئة الفاخرة'}</option>
-                <option style={{ background: th.bg, color: th.text }}>{lang === 'en' ? 'Ultra-Luxury Tier' : 'الفئة الفائقة الفخامة'}</option>
-                <option style={{ background: th.bg, color: th.text }}>20M+</option>
-              </select>
+              {/* Search → jumps to the matching listings (now reflecting the chosen filters) */}
+              <button onClick={scrollToListings} style={{ width: '100%', background: `linear-gradient(135deg, ${G2}, ${G})`, color: '#071422', border: 'none', cursor: 'pointer', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: isAr ? '.02em' : '.14em', textTransform: 'uppercase', padding: '14px 20px', borderRadius: 12, boxShadow: `0 8px 24px rgba(233,193,118,0.3)`, transition: 'all .3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 12px 32px rgba(233,193,118,0.4)`; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 8px 24px rgba(233,193,118,0.3)`; }}>
+                <span>{T.searchBtn}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" style={{ width: 16, height: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+                </svg>
+              </button>
             </div>
-
-            {/* AI Action Button */}
-            <button onClick={scrollToListings} style={{ width: '100%', background: `linear-gradient(135deg, ${G2}, ${G})`, color: '#071422', border: 'none', cursor: 'pointer', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: isAr ? '.02em' : '.14em', textTransform: 'uppercase', padding: '14px 20px', borderRadius: 12, boxShadow: `0 8px 24px rgba(233,193,118,0.3)`, transition: 'all .3s ease', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 12px 32px rgba(233,193,118,0.4)`; const icon = e.currentTarget.querySelector('svg'); if (icon) icon.style.transform = 'translateX(4px)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 8px 24px rgba(233,193,118,0.3)`; const icon = e.currentTarget.querySelector('svg'); if (icon) icon.style.transform = 'translateX(0)'; }}>
-              <span>✨ {lang === 'en' ? 'Find with AI' : 'ابحث بالذكاء الاصطناعي'}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" style={{ width: 16, height: 16, transition: 'transform .3s ease' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </button>
           </div>
         </div>
 
