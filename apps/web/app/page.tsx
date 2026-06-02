@@ -5,12 +5,11 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useI18n } from '@/lib/I18nContext';
 import { useTheme } from 'next-themes';
-import { InventoryService, Property } from '@/lib/services/InventoryService';
 import ShieldLogo from '@/components/Landing/ShieldLogo';
 import PropCard from '@/components/Landing/PropCard';
 import { 
-  Sparkles, Smartphone, MapPin, TrendingUp, DollarSign, Calculator, 
-  Bot, User, ChevronRight, X, Check, Heart, Shield, HelpCircle, Layers, Award
+  Sparkles, Smartphone, MapPin, TrendingUp, DollarSign, 
+  Bot, ChevronRight, X, Check, Heart, HelpCircle, Layers
 } from 'lucide-react';
 
 const LiveMap = dynamic(() => import('@/components/Maps/LiveMap'), {
@@ -102,8 +101,6 @@ export default function LandingPage() {
   
   // Basic states
   const [mounted, setMounted] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeZone, setActiveZone] = useState<number | null>(null);
   
   // Custom Filter State
   const [dealType, setDealType] = useState<'rent' | 'resale'>('resale');
@@ -129,11 +126,9 @@ export default function LandingPage() {
   // Pricing Engine
   const [calcCompound, setCalcCompound] = useState('lake-view');
   const [calcArea, setCalcArea] = useState(180);
-  const [calcBedrooms, setCalcBedrooms] = useState(3);
 
   // Dream Advisor
   const [dreamStep, setDreamStep] = useState(1);
-  const [dreamPriority, setDreamPriority] = useState('');
   const [dreamBudget, setDreamBudget] = useState('');
 
   // S24 Ultra Drag State
@@ -148,9 +143,6 @@ export default function LandingPage() {
 
   useEffect(() => {
     setMounted(true);
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   if (!mounted) return null;
@@ -198,7 +190,6 @@ export default function LandingPage() {
 
   // ROI calculations
   const grossYield = ((roiRent * 12) / roiPrice) * 100;
-  const netYield = grossYield - 1.2;
 
   // S24 Ultra Drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -969,8 +960,8 @@ export default function LandingPage() {
                       <div>
                         <h4 style={{ margin: '0 0 1rem 0' }}>What is your core investment priority?</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                          <button onClick={() => { setDreamPriority('luxury'); setDreamStep(2); }} style={{ padding: '10px', background: 'transparent', border: `1px solid ${th.border}`, borderRadius: '8px', color: '#fff', cursor: 'pointer' }}>Luxury Lifestyles</button>
-                          <button onClick={() => { setDreamPriority('yield'); setDreamStep(2); }} style={{ padding: '10px', background: 'transparent', border: `1px solid ${th.border}`, borderRadius: '8px', color: '#fff', cursor: 'pointer' }}>High Occupancy Yields</button>
+                          <button onClick={() => setDreamStep(2)} style={{ padding: '10px', background: 'transparent', border: `1px solid ${th.border}`, borderRadius: '8px', color: '#fff', cursor: 'pointer' }}>Luxury Lifestyles</button>
+                          <button onClick={() => setDreamStep(2)} style={{ padding: '10px', background: 'transparent', border: `1px solid ${th.border}`, borderRadius: '8px', color: '#fff', cursor: 'pointer' }}>High Occupancy Yields</button>
                         </div>
                       </div>
                     ) : (
