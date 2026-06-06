@@ -1,4 +1,25 @@
-# React + TypeScript + Vite
+# Sierra Estates — Admin Portal (Private Write/Control)
+
+**Package:** `sierra-estates-admin-portal` · **Surface:** Private, master write/control
+
+This is the private Sierra Estates admin portal — the master **write/control** surface for
+the CRM, listings management, agent orchestration, scrapers/sync, and bot telemetry. It is
+**staff-gated** (Firebase auth + `users/{uid}.role`) and is the counterpart to the public
+read-only `sierra-estates-realty` client hub.
+
+## Role in the two-app layout
+
+| App | Package | Surface | Responsibility |
+|-----|---------|---------|----------------|
+| `apps/web` | `sierra-estates-realty` | Public | Read-only client hub over Firestore streams |
+| **`apps/admin`** (this app) | `sierra-estates-admin-portal` | Private | Master write/control admin CRM & bot telemetry |
+
+Privileged writes flow through authenticated API routes (Admin SDK) and the Anti-Gravity
+backend engine — secrets (`CRON_SECRET` / `SBR_SECRET_KEY`) never reach the browser.
+
+---
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
