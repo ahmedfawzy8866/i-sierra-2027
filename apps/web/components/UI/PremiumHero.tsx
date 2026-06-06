@@ -1,5 +1,10 @@
 'use client';
 
+/**
+ * SIERRA ESTATES — PREMIUM HERO SECTION
+ * Cinematic parallax hero with luxury villa imagery
+ * Design: Quiet Luxury (Navy/Gold/Ivory)
+ */
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Compass, ShieldCheck, Play, Award, RotateCcw, UploadCloud, Check, HelpCircle, ArrowRight } from 'lucide-react';
