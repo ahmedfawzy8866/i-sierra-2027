@@ -1,10 +1,32 @@
 import { NextResponse } from 'next/server';
+import { adminDb } from '@/lib/server/firebase-admin';
 import { ObsidianVaultSync } from '@obedian/index';
 
 export async function GET() {
   try {
-    const sync = new ObsidianVaultSync();
-    const notes = await sync.scanVault();
+    // 1. Try to fetch from Firestore first (Production mode)
+    const kbCollection = adminDb.collection('knowledge_base');
+    const snapshot = await kbCollection.get();
+    
+    let notes: any[] = [];
+
+    if (!snapshot.empty) {
+      notes = snapshot.docs.map((doc: any) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          title: data.title,
+          content: data.content,
+          tags: data.tags || [],
+          lastModified: data.lastModified?.toDate ? data.lastModified.toDate() : data.lastModified,
+          metadata: data.metadata || {}
+        };
+      });
+    } else {
+      // 2. Fallback to scanning the local drive vault (Local Dev mode)
+      const sync = new ObsidianVaultSync();
+      notes = await sync.scanVault();
+    }
     
     // For admin UI, we don't want to send the entire content of every note over the wire,
     // just the metadata.
