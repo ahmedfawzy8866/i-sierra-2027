@@ -189,6 +189,12 @@ importers:
       '@opentelemetry/semantic-conventions':
         specifier: ^1.40.0
         version: 1.41.1
+      '@sierra-estates/agents-core':
+        specifier: workspace:*
+        version: link:../../packages/agents-core
+      '@sierra-estates/obedian':
+        specifier: workspace:*
+        version: link:../../packages/obedian
       '@types/leaflet':
         specifier: ^1.9.21
         version: 1.9.21
