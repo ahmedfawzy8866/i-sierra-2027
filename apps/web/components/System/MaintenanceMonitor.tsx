@@ -1,13 +1,16 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Zap, 
   Database, 
   RefreshCcw, 
+  Trash2, 
   Clock, 
   Terminal, 
-  CheckCircle2,
+  AlertTriangle, 
+  CheckCircle2, 
+  ChevronRight,
   Shield,
   Cpu,
   Activity
@@ -124,7 +127,7 @@ export default function MaintenanceMonitor() {
           </div>
           <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-            <span className="text-[10px] text-white/30 uppercase tracking-tighter">Connection Stable: Sierra Estates Core</span>
+            <span className="text-[10px] text-white/30 uppercase tracking-tighter">Connection Stable: Sierra Blu Core</span>
           </div>
         </div>
       </div>

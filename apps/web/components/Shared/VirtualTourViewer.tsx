@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useI18n } from '../../lib/I18nContext';
 import { Pause, Play, X, Move } from 'lucide-react';
 
@@ -43,8 +44,8 @@ export default function VirtualTourViewer({ sceneUrl, title, onClose }: VirtualT
           autoRotate: -2,
           showControls: false,
           compass: true,
-          title: title || 'Sierra Estates Virtual Tour',
-          author: 'Sierra Estates Realty',
+          title: title || 'Sierra Blu Virtual Tour',
+          author: 'Sierra Blu Realty',
         });
         setIsLoaded(true);
       }
@@ -101,7 +102,7 @@ export default function VirtualTourViewer({ sceneUrl, title, onClose }: VirtualT
       {/* Branding Subtitle */}
       <footer className="px-12 pb-8 flex justify-between items-center opacity-40">
         <span className="text-[9px] font-bold text-white uppercase tracking-[0.5em]">Beyond Brokerage</span>
-        <span className="text-white text-xs font-serif italic">Sierra Estates Proprietary Intelligence</span>
+        <span className="text-white text-xs font-serif italic">Sierra Blu Proprietary Intelligence</span>
       </footer>
     </div>
   );

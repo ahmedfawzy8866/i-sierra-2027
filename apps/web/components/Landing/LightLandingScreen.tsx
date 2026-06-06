@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ArrowUpRight, MapPin, Globe, Shield, User, Menu, X, Sparkles, Phone } from 'lucide-react';
+import { ChevronRight, ArrowUpRight, MapPin, Globe, Shield, User, Menu, X, Sparkles, TrendingUp, Building2, Phone } from 'lucide-react';
 import BrandLogo from '../UI/BrandLogo';
 import { collection, query, limit, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -518,7 +518,7 @@ export default function LightLandingScreen({ onEnterPortal }: { onEnterPortal: (
         </div>
         <div className="max-w-[1400px] mx-auto mt-10 pt-6 flex flex-col sm:flex-row justify-between gap-4" style={{ borderTop: '1px solid var(--border)' }}>
           <span className="text-[11px] uppercase tracking-widest font-bold opacity-30" style={{ color: 'var(--text)' }}>
-            © 2026 Sierra Estates Realty. All Rights Reserved.
+            © 2026 Sierra Blu Realty. All Rights Reserved.
           </span>
           <div className="flex gap-6">
             {['Privacy Policy', 'Terms'].map((l) => (

@@ -15,7 +15,7 @@ type WizardStage = 'CHOOSE_TYPE' | 'CHOOSE_SOURCE' | 'UPLOAD' | 'PORTAL' | 'MAPP
 type ImportValue = string | number | boolean | null | undefined;
 type ImportRow = Record<string, ImportValue>;
 
-interface _ImportedListing {
+interface ImportedListing {
   title: string;
   location: string;
   price: string;
@@ -528,7 +528,7 @@ export default function SyncWizard({ onClose, onSuccess }: SyncWizardProps) {
         </div>
 
         <div className="modal-footer" style={{ justifyContent: 'center', borderTop: 'none', background: 'rgba(0,0,0,0.02)', padding: '16px' }}>
-          <div style={{ opacity: 0.5, fontSize: '11px', letterSpacing: '1px', fontWeight: 600 }}>SIERRA ESTATES REALTY OPERATIONAL INTELLIGENCE</div>
+          <div style={{ opacity: 0.5, fontSize: '11px', letterSpacing: '1px', fontWeight: 600 }}>SIERRA BLU REALTY OPERATIONAL INTELLIGENCE</div>
         </div>
       </div>
 

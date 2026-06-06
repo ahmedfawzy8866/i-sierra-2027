@@ -11,6 +11,4 @@ node_modules/
 .turbo/
 antigravity-ide/
 free-claude-code/
-
-# test coverage output
-coverage/
+.vercel

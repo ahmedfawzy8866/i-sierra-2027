@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * SIERRA ESTATES — INVENTORY SHOWCASE
+ * SIERRA BLU — INVENTORY SHOWCASE
  * High-fidelity grid of exclusive properties with hover states and cinematic reveals.
  * Design: Quiet Luxury (Navy/Gold/Ivory)
  */
@@ -59,7 +59,7 @@ const MOCK_PROPERTIES: Property[] = [
   },
 ];
 
-export default function InventoryShowcase() {
+export default function InventoryShowcase({ filters }: { filters?: any }) {
   return (
     <section className="py-24 px-6 md:px-12 bg-sb-navy-deep relative overflow-hidden">
       {/* Decorative Background Elements */}
