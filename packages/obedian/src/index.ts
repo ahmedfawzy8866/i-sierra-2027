@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+export { ObsidianVaultSync, type ObsidianNote } from './obsidian-sync';
 
 export interface MemoryEntry {
   id: string;

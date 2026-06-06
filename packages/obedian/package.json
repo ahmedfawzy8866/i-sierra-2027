@@ -9,10 +9,11 @@
     "build": "tsc"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "zod": "^3.22"
   },
   "devDependencies": {
-    "typescript": "^5.3",
-    "@types/node": "^20"
+    "@types/node": "^20",
+    "typescript": "^5.3"
   }
 }
