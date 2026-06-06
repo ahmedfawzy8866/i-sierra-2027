@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 /**
- * SIERRA BLU — TESTIMONIALS CAROUSEL
+ * SIERRA ESTATES — TESTIMONIALS CAROUSEL
  * A luxury, smooth-transition carousel for client testimonials
  */
 
@@ -21,46 +21,18 @@ interface TestimonialsCarouselProps {
   isArabic?: boolean;
 }
 
-const DEFAULT_TESTIMONIALS: Testimonial[] = [
-  {
-    name: 'Sherif El-Gammal',
-    role: 'Managing Director, Apex Capital',
-    quote: 'Sierra Blu\'s off-market inventory is truly elite. They secured a premium waterfront asset for us before it even hit the public registry.',
-  },
-  {
-    name: 'Layla Mansour',
-    role: 'HNW Real Estate Investor',
-    quote: 'Their AI data models gave us verified yield numbers that matched our final rental returns perfectly. Invaluable defensive advisory.',
-  },
-];
-
-const DEFAULT_TESTIMONIALS_AR: Testimonial[] = [
-  {
-    name: 'شريف الجمال',
-    role: 'العضو المنتدب، أيبكس كابيتال',
-    quote: 'محفظة عقارات سييرا بلو الحصرية غير معلنة هي بالفعل نخبوية. لقد أمنوا لنا أصلاً مائياً متميزاً قبل طرحه للجمهور.',
-  },
-  {
-    name: 'ليلى منصور',
-    role: 'مستثمرة عقارية',
-    quote: 'نماذج البيانات الذكية الخاصة بهم أعطتنا أرقام عوائد استثمارية دقيقة تطابقت تماماً مع عوائد الإيجار الفعلية.',
-  },
-];
-
 export default function TestimonialsCarousel({ testimonials, isArabic = false }: TestimonialsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const activeTestimonials = testimonials || (isArabic ? DEFAULT_TESTIMONIALS_AR : DEFAULT_TESTIMONIALS);
-
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % activeTestimonials.length);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + activeTestimonials.length) % activeTestimonials.length);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  const current = activeTestimonials[currentIndex] || activeTestimonials[0];
+  const current = testimonials[currentIndex];
 
   return (
     <div className="relative w-full max-w-5xl mx-auto py-20 px-6" dir={isArabic ? 'rtl' : 'ltr'}>
@@ -109,7 +81,7 @@ export default function TestimonialsCarousel({ testimonials, isArabic = false }:
 
       {/* Pagination Dots */}
       <div className="flex justify-center gap-3 mt-16">
-        {activeTestimonials.map((_, i) => (
+        {testimonials.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}

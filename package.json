@@ -1,7 +1,7 @@
 {
-  "name": "sierra-blu-platform",
+  "name": "sierra-estates-platform",
   "version": "1.0.0",
-  "description": "Sierra Blu - Luxury Real Estate Platform",
+  "description": "Sierra Estates - Luxury Real Estate Platform",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@9.0.0",
@@ -29,7 +29,12 @@
   "devDependencies": {
     "cross-env": "^10.1.0",
     "turbo": "^2.9.16",
-    "typescript": "^5.3.3"
+    "typescript": "^5.9.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-unused-imports": "^3.1.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "@types/jest": "^29.5.12"
   },
   "engines": {
     "node": ">=20.0.0",

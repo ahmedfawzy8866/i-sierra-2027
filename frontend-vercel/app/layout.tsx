@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Cinzel, Josefin_Sans, Noto_Naskh_Arabic, Noto_Sans_Arabic } from 'next/font/google';
 import { Providers } from './providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,14 +12,38 @@ const inter = Inter({
   display: 'swap',
 });
 
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  variable: '--font-cinzel',
+  display: 'swap',
+});
+
+const josefin = Josefin_Sans({
+  subsets: ['latin'],
+  variable: '--font-josefin',
+  display: 'swap',
+});
+
+const notoNaskh = Noto_Naskh_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-noto-naskh-arabic',
+  display: 'swap',
+});
+
+const notoSans = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-noto-sans-arabic',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
-  title: 'Sierra Blu Realty | سييرا بلو العقارية',
+  title: 'Sierra Estates Realty | سييرا بلو العقارية',
   description:
     "Cinematic Luxury Real Estate — Premium properties across Egypt's most exclusive communities | عقارات فاخرة في أرقى المجتمعات المصرية",
-  keywords: ['real estate', 'luxury', 'Egypt', 'New Cairo', 'عقارات', 'فاخرة', 'مصر', 'Sierra Blu'],
+  keywords: ['real estate', 'luxury', 'Egypt', 'New Cairo', 'عقارات', 'فاخرة', 'مصر', 'Sierra Estates'],
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   openGraph: {
-    title: 'Sierra Blu Realty',
+    title: 'Sierra Estates Realty',
     description: "Egypt's Premier Property Intelligence Platform",
     type: 'website',
     locale: 'en_US',
@@ -31,7 +55,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${cinzel.variable} ${josefin.variable} ${notoNaskh.variable} ${notoSans.variable}`}>
       <head>
         {/* Preconnect to font CDN & image CDNs */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
