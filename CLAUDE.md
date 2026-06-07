@@ -1,9 +1,9 @@
-# CLAUDE.md — Sierra Blu (i-sierra-2027)
+# CLAUDE.md — Sierra Estates (i-sierra-2027)
 
 Context for Claude Code / AI sessions. Keep this updated as the project evolves.
 
 ## What this is
-Sierra Blu / Sierra Estates — a luxury real-estate (PropTech) platform for the New Cairo market. pnpm + Turborepo monorepo.
+Sierra Estates — a luxury real-estate (PropTech) platform for the New Cairo market. pnpm + Turborepo monorepo.
 
 ## Stack
 Next.js 16 (App Router, Turbopack) · React 19 · TypeScript 5 (strict) · Tailwind 4 · Firebase (client SDK 12 + Admin SDK 13: Firestore, Storage, Auth) · Leaflet maps · next-intl (en/ar). Observability: OpenTelemetry + Arize.
@@ -12,20 +12,19 @@ Next.js 16 (App Router, Turbopack) · React 19 · TypeScript 5 (strict) · Tailw
 
 ```
 ONE Vercel deployment → apps/web (Next.js)
-  /                  Public site: listings, search, leads, about, contact
+  /                  Public site: listings, search, about, contact
   /listings          Property marketplace
   /concierge/[id]    Client portfolio views
-  /admin/*           Staff admin panel (Firebase Auth gated via layout.tsx)
-    /admin/login       → Login
-    /admin/dashboard   → KPIs & activity
-    /admin/units       → Inventory management
-    /admin/deals       → Deal pipeline
-    /admin/leads/[id]  → Lead CRM
-    /admin/team        → Team management
-    /admin/media       → Media hub
-    /admin/reports     → Analytics
-    /admin/sync        → Data sync center
-    /admin/settings    → System settings
+  /admin/login       Staff authentication (Firebase Auth)
+  /admin            Unified admin dashboard (tabbed interface)
+    Dashboard        → KPIs, activity feed, sync health
+    Units            → Inventory CRUD, PropertyFinder publish
+    Leads            → CRM, AI matching, approvals
+    Deals            → Pipeline management (draft → closed)
+    Team             → Staff management
+    Media            → Asset hub
+    Reports          → Analytics & insights
+    Settings         → System configuration
   /api/*             All backend APIs (auth-guarded per route)
 
 Firebase — infrastructure ONLY (no hosting)
@@ -42,7 +41,7 @@ Do not deploy it. See `apps/admin/DEPRECATED.md`. Real admin = `apps/web/app/adm
 - `vercel.json` (root) — Vercel config when root dir = repo root (buildCommand points to apps/web)
 - `apps/web/vercel.json` — Vercel config when root dir = `apps/web` in Vercel dashboard
 - `firebase.json` — Functions + Firestore rules + Storage rules + emulators (no hosting)
-- `.firebaserc` — Firebase project: `sierra-blu-prod`
+- `.firebaserc` — Firebase project: `sierra-blu` (production)
 
 ## Layout
 - `apps/web` — main Next.js app and the real codebase (~26 pages, 38 API routes, ~78 components, ~39 services).
