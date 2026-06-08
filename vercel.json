@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "sierra-2027",
+  "name": "sierra-estates-production",
   "buildCommand": "pnpm run build",
   "devCommand": "pnpm run dev",
   "installCommand": "pnpm install",
