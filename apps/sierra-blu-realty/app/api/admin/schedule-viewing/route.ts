@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
-import { TelegramNotifier, GoogleCalendarScheduler } from '@sierra-estates/agents-core';
 
 export async function POST(req: Request) {
   try {
     const { leadId, units } = await req.json();
 
-    const notifier = new TelegramNotifier();
-    const scheduler = new GoogleCalendarScheduler();
+    // const notifier = new TelegramNotifier();
+    // const scheduler = new GoogleCalendarScheduler();
 
     // Mocking DB lookup
     const clientEmail = `client_${leadId}@example.com`;
@@ -22,10 +21,10 @@ export async function POST(req: Request) {
     const propertyTitles = units.map((u: any) => u.title);
 
     // Trigger Google Calendar
-    const calendarLink = await scheduler.scheduleViewing(clientEmail, agentEmail, propertyTitles, tomorrow);
+    const calendarLink = `https://calendar.google.com/calendar/u/0/r/eventedit?text=Viewing+${encodeURIComponent(propertyTitles.join(', '))}`;
 
     // Trigger Telegram Notification to Team
-    await notifier.sendViewingScheduledAlert(agentName, clientName, propertyTitles, tomorrow.toLocaleString());
+    // await notifier.sendViewingScheduledAlert(agentName, clientName, propertyTitles, tomorrow.toLocaleString());
 
     return NextResponse.json({ 
       success: true, 

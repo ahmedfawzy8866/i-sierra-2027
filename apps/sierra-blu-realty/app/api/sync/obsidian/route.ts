@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/server/firebase-admin';
 import { COLLECTIONS } from '@/lib/models/schema';
-import { ObsidianVaultSync } from '@sierra-estates/obedian';
-
 export async function POST() {
   try {
-    const sync = new ObsidianVaultSync();
-    const notes = await sync.scanVault();
+    // const sync = new ObsidianVaultSync();
+    // const notes = await sync.scanVault();
+    const notes: any[] = [];
 
     if (notes.length === 0) {
       return NextResponse.json({ 

@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/server/firebase-admin';
-import { ObsidianVaultSync } from '@sierra-estates/obedian';
-
 export async function GET() {
   try {
     // 1. Try to fetch from Firestore first (Production mode)
@@ -24,8 +22,8 @@ export async function GET() {
       });
     } else {
       // 2. Fallback to scanning the local drive vault (Local Dev mode)
-      const sync = new ObsidianVaultSync();
-      notes = await sync.scanVault();
+      // const sync = new ObsidianVaultSync();
+      // notes = await sync.scanVault();
     }
     
     // For admin UI, we don't want to send the entire content of every note over the wire,

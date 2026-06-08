@@ -1,4 +1,3 @@
-import { ObsidianVaultSync } from '@sierra-estates/obedian';
 
 export interface ClientNeeds {
   budget: number;
@@ -16,10 +15,7 @@ export interface MatchedUnit {
 }
 
 export class LeilaAgent {
-  private memorySync: ObsidianVaultSync;
-
   constructor() {
-    this.memorySync = new ObsidianVaultSync();
   }
 
   /**
@@ -32,7 +28,7 @@ export class LeilaAgent {
     console.log(`Leila is analyzing client needs for budget: ${clientNeeds.budget}`);
 
     // Simulation of AI reading the Knowledge Base for rules
-    const rules = await this.memorySync.scanVault();
+    const rules: any[] = [];
     const hasRoiRule = rules.some((r: any) => r.tags?.includes('roi-calculation'));
 
     // Calculate match scores
