@@ -12,20 +12,19 @@ Next.js 16 (App Router, Turbopack) · React 19 · TypeScript 5 (strict) · Tailw
 
 ```
 ONE Vercel deployment → apps/web (Next.js)
-  /                  Public site: listings, search, leads, about, contact
+  /                  Public site: listings, search, about, contact
   /listings          Property marketplace
   /concierge/[id]    Client portfolio views
-  /admin/*           Staff admin panel (Firebase Auth gated via layout.tsx)
-    /admin/login       → Login
-    /admin/dashboard   → KPIs & activity
-    /admin/units       → Inventory management
-    /admin/deals       → Deal pipeline
-    /admin/leads/[id]  → Lead CRM
-    /admin/team        → Team management
-    /admin/media       → Media hub
-    /admin/reports     → Analytics
-    /admin/sync        → Data sync center
-    /admin/settings    → System settings
+  /admin/login       Staff authentication (Firebase Auth)
+  /admin            Unified admin dashboard (tabbed interface)
+    Dashboard        → KPIs, activity feed, sync health
+    Units            → Inventory CRUD, PropertyFinder publish
+    Leads            → CRM, AI matching, approvals
+    Deals            → Pipeline management (draft → closed)
+    Team             → Staff management
+    Media            → Asset hub
+    Reports          → Analytics & insights
+    Settings         → System configuration
   /api/*             All backend APIs (auth-guarded per route)
 
 Firebase — infrastructure ONLY (no hosting)
