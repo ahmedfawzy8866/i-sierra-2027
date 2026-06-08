@@ -5,7 +5,7 @@
   "devCommand": "pnpm run dev",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "regions": ["iad1", "sjc1"],
+  "regions": ["iad1"],
   "crons": [
     {
       "path": "/api/cron/sync-leads",
