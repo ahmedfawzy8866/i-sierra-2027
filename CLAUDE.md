@@ -61,8 +61,15 @@ Do not deploy it. See its `DEPRECATED.md`. Real admin = `apps/sierra-estates-rea
 - Tests: Jest (realty app) + functions. `type-check` is a real CI gate (`tsc --noEmit`). `apps/sierra-estates-realty/next.config.ts` has `ignoreBuildErrors: false`.
 
 ## Vercel Setup (one-time in dashboard)
-Option A (recommended): Root Directory = `apps/sierra-estates-realty` → uses that app's `vercel.json`
-Option B (fallback): Root Directory = repo root → uses root `vercel.json` with correct build cmd
+Current choice — **Root Directory = repo root**, driven by the root `vercel.json`:
+  - Framework Preset: `Next.js`
+  - Build Command: `pnpm run build` (builds the realty app via workspace filter)
+  - Install Command: `pnpm install`
+  - Output Directory: `apps/sierra-estates-realty/.next` (set in root `vercel.json`)
+
+Fallback if Vercel reports "No Next.js version detected" from the repo root: set
+Root Directory = `apps/sierra-estates-realty` (the app has its own `vercel.json`) — this is
+Vercel's natively-supported monorepo pattern and needs no repo changes.
 
 ## Conventions
 - ESLint flat config (`apps/sierra-estates-realty/eslint.config.mjs`) with `eslint-plugin-unused-imports`; unused vars/args/caught-errors must be `_`-prefixed.
