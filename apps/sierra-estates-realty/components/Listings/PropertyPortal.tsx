@@ -2,7 +2,7 @@
 
 /**
  * Sierra Estates — PROPERTY PORTAL (client marketplace)
- * Ported from the "Sierra Blu Portal v3.3" luxury design.
+ * Ported from the uploaded Sierra Estates luxury portal design.
  * Wired to live Firestore inventory via the useSierraEstates hook.
  */
 
