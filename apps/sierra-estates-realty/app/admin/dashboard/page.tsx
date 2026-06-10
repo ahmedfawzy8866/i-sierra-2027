@@ -197,9 +197,10 @@ export default function AdminDashboardPage() {
                   <div
                     className="h-full rounded-full transition-all duration-500"
                     style={{
-                      width: `${row.pct}%`,
+                      ['--w' as any]: `${row.pct}%`,
+                      width: 'var(--w)',
                       background: `linear-gradient(90deg, ${row.color}, ${row.color}88)`,
-                      animation: `slideIn 0.8s ease-out ${idx * 0.1}s both`
+                      animation: `slideIn 0.8s ease-out ${idx * 0.1}s both`,
                     }}
                   />
                 </div>
