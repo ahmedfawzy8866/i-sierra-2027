@@ -36,7 +36,7 @@ export function middleware(request: NextRequest) {
     // Token configured but missing/mismatched → block. No token (local dev) → allow.
     if (systemSecureToken && inboundSecretHeader !== systemSecureToken) {
       return new NextResponse(
-        JSON.stringify({ success: false, message: 'Security Integrity Refused. Access Blocked.' }),
+        JSON.stringify({ success: false, error: 'Unauthorized: Invalid or missing X-SBR-SECRET-KEY' }),
         { status: 401, headers: { 'content-type': 'application/json', ...cors } }
       );
     }
